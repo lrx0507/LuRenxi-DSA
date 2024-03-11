@@ -41,6 +41,14 @@ public class Person implements Comparable<Person> {
     public int hashCode() {
         int hash = 5381;
         // Implement hash function here.
+        for(int i = 0; i < firstName.length(); ++i)
+        {
+            hash = (hash * 5381) + (int)(firstName.charAt(i));
+        }
+        for(int i = 0; i < lastName.length(); ++i)
+        {
+            hash = (hash * 5381) + (int)(lastName.charAt(i));
+        }
         return hash;
     }
 
