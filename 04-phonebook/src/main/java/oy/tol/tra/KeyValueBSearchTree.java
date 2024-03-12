@@ -56,6 +56,7 @@ public class KeyValueBSearchTree<K extends Comparable<K>, V> implements Dictiona
         if(root == null)
         {
             root = new TreeNode<>(key, value);
+            TreeNode.currentAddTreeDepth++;
             count++;
             return true;
         }
@@ -65,8 +66,9 @@ public class KeyValueBSearchTree<K extends Comparable<K>, V> implements Dictiona
             // so do not just replace it with this new node but set
             // the keys and values for the already existing root.
        int tmp = root.insert(key, value, key.hashCode());
-
-        return tmp == 1;
+       if(tmp == 1)
+            count++;
+        return true;
     }
 
     @Override

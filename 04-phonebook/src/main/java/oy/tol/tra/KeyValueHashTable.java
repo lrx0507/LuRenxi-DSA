@@ -22,7 +22,7 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
 
     @Override
     public Type getType() {
-        return Type.NONE;
+        return Type.HASHTABLE;
     }
 
     @SuppressWarnings("unchecked")
@@ -74,27 +74,26 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
         if (null == key || value == null)
             throw new IllegalArgumentException("Person or phone number cannot be null");
         // Remeber to check for null values.
-        for (Pair<K, V> pair : values) {
-            // Must not have duplicate keys, so check if key is already in the array.
-            if (pair != null && pair.getKey().equals(key)) {
-                pair.setValue(value);
-                return true;
-            }
-        }
-        // Checks if the LOAD_FACTOR has been exceeded --> if so, reallocates to a
-        // bigger hashtable.
         if (((double) count * (1.0 + LOAD_FACTOR)) >= values.length) {
             reallocate((int) ((double) (values.length) * (1.0 / LOAD_FACTOR)));
         }
-        int index = key.hashCode() % values.length;
+        
+        // Checks if the LOAD_FACTOR has been exceeded --> if so, reallocates to a
+        // bigger hashtable.
+        
+        int index = (key.hashCode()) % values.length;
+        int tmpStep = 0;
         // Remember to get the hash key from the Person,
         // hash table computes the index for the Person (based on the hash value),
         // if index was taken by different Person (collision), get new hash and index,
         // insert into table when the index has a null in it,
         // return true if existing Person updated or new Person inserted.
-        while (values[index] != null && values[index].getKey().equals(key)) {
+        while (values[index] != null && !values[index].getKey().equals(key)) {
             index = (index + 1) % values.length;
+            //collisionCount++;
+            tmpStep++;
         }
+        maxProbingSteps = (tmpStep> maxProbingSteps) ? tmpStep : maxProbingSteps;
         if (values[index] == null) {
             values[index] = new Pair<>(key, value);
             count++;
@@ -112,12 +111,31 @@ public class KeyValueHashTable<K extends Comparable<K>, V> implements Dictionary
         // Must use same method for computing index as add method
         if (null == key)
             throw new IllegalArgumentException("Person to find cannot be null");
-        for (int counter = 0; counter < values.length; counter++) {
+       /*for (int counter = 0; counter < values.length; counter++) {
             if (values[counter] != null && key.equals(values[counter].getKey())) {
                 return values[counter].getValue();
             }
         }
-        return null;
+        return null;*/
+        int idx = key.hashCode()%values.length;
+        int chk = 0;
+        while(true)
+        {
+            chk++;
+            if(values[idx] !=null)
+            {
+                if(!values[idx].getKey().equals(key))
+                    idx = (idx+1)%values.length;
+                else
+                    return values[idx].getValue();
+            }
+            
+            if(chk > values.length+1)
+            {
+                return null;
+            }
+        }
+
     }
 
     @Override

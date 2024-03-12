@@ -40,16 +40,17 @@ public class Person implements Comparable<Person> {
     @Override
     public int hashCode() {
         int hash = 5381;
+        //int mod = 994853743;
         // Implement hash function here.
         for(int i = 0; i < firstName.length(); ++i)
         {
-            hash = (hash * 5381) + (int)(firstName.charAt(i));
+            hash = ((hash * 5381) + (int)(firstName.charAt(i)) );
         }
         for(int i = 0; i < lastName.length(); ++i)
         {
-            hash = (hash * 5381) + (int)(lastName.charAt(i));
+            hash = ((hash * 5381)+ (int)(lastName.charAt(i)));
         }
-        return hash;
+        return Math.abs(hash);
     }
 
     @Override
