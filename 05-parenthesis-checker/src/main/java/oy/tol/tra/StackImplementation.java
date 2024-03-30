@@ -91,7 +91,10 @@ public class StackImplementation<E> implements StackInterface<E> {
       {
          throw new StackIsEmptyException("The stack is empty, you cannot pop any element");
       }
-      return (E)itemArray[currentIndex--];
+      E tmp = (E)itemArray[currentIndex];
+      itemArray[currentIndex] = null;
+      currentIndex--;
+      return tmp;
    }
 
    @SuppressWarnings("unchecked")
