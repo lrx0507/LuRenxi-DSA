@@ -20,6 +20,7 @@ public final class BookFactory {
     public static Book createBook() {
         // return null;
         //return new HashTableBookImplementation();
-        return new BSTBookImplementation();
+        //return new BSTBookImplementation();
+        return new BSTBookImplementationCountSort();
     }
 }
