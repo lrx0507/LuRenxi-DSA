@@ -188,10 +188,11 @@ public class KeyValueHashTable< V extends Comparable <V>>  {
             if (i >= j) {
                 return j;
             }
-    
+    /* 
             Pair<String, V> temp = array[i];
             array[i] = array[j];
-            array[j] = temp;
+            array[j] = temp;*/
+            Algorithms.swap(array,i, j);
         }
     }
 
