@@ -10,9 +10,7 @@ public class Algorithms {
       for (int j = i; j > 0; --j) {
          for (int k = 0; k <= j - 1; ++k) {
             if (array[k].compareTo(array[k + 1]) > 0) {
-               T tmp = array[k];
-               array[k] = array[k + 1];
-               array[k + 1] = tmp;
+               swap(array, k, k+1);
             }
          }
       }
@@ -29,7 +27,7 @@ public class Algorithms {
 
       int i = 0;
       while (i < array.length / 2) {
-         swap(array, i, array.length - i - 1)
+         swap(array, i, array.length - i - 1);
          i++;
       }
 
