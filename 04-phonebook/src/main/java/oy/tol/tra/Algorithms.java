@@ -29,9 +29,7 @@ public class Algorithms {
 
       int i = 0;
       while (i < array.length / 2) {
-         T temp = array[i];
-         array[i] = array[array.length - i - 1];
-         array[array.length - i - 1] = temp;
+         swap(array, i, array.length - i - 1)
          i++;
       }
 
@@ -64,14 +62,10 @@ public class Algorithms {
       for (int j = begin; j <= end - 1; ++j) {
          if (array[j].compareTo(x) <= 0) {
             i = i + 1;
-            E tmp = array[i];
-            array[i] = array[j];
-            array[j] = tmp;
+            swap(array, i, j);
          }
       }
-      E tmp = array[i + 1];
-      array[i + 1] = array[end];
-      array[end] = tmp;
+      swap(array, i+1, end);
       return i + 1;
    }
 
