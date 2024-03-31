@@ -14,16 +14,29 @@ public class QueueImplementation<E> implements QueueInterface<E> {
             itemArray = new Object[DEFAULT_QUEUE_SIZE];
             this.capacity = DEFAULT_QUEUE_SIZE;
         } catch (Exception e) {
-            throw new QueueAllocationException("The programme failed to allocate space for the stack");
+            throw new QueueAllocationException("The programme failed to allocate space for the queue");
         }
 
     }
 
     public QueueImplementation(int capacity) {
-        this.capacity = capacity;
+        if(capacity <= 2)
+        {
+           
+            throw new QueueAllocationException("The programme failed to allocate space for the queue");
+            
+        }
+        else
+        {
+            this.capacity = capacity;
+        }
+            
         this.itemArray = new Object[capacity];
         this.size = 0;
+        this.head = 0;
+        this.tail = 0;
     }
+
 
     @Override
     public int capacity() {
@@ -37,6 +50,7 @@ public class QueueImplementation<E> implements QueueInterface<E> {
         }
         size--;
         E tmp = (E) itemArray[head];
+        itemArray[head] = null;
         head = (head + 1) % capacity;
         return tmp;
     }
